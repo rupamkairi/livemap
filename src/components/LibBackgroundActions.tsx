@@ -1,6 +1,8 @@
 import Geolocation from '@react-native-community/geolocation';
 import {Button, Linking, Platform, View} from 'react-native';
 import BackgroundJob from 'react-native-background-actions';
+import {calculatePointInsidePolygon} from './GoogleMaps/useCalculatePolygon';
+import {emulatorPolygon} from './GoogleMaps/LibGoogleMap';
 
 const sleep = (time: any) =>
   new Promise<void>(resolve => setTimeout(() => resolve(), time));
@@ -17,13 +19,32 @@ const taskRandom = async (taskData: any) => {
     const {delay} = taskData;
     console.log(BackgroundJob.isRunning(), delay);
     for (let i = 0; BackgroundJob.isRunning(); i++) {
-      console.log('Ran -> ', i);
       Geolocation.getCurrentPosition(async position => {
-        console.log('getCurrentPosition', position);
         const pos = position.coords.latitude + ', ' + position.coords.longitude;
-        await BackgroundJob.updateNotification({
-          taskDesc: 'Ran -> ' + i + ' : ' + pos,
-        });
+
+        let res = calculatePointInsidePolygon(
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          emulatorPolygon,
+        )
+          ? 'Inside'
+          : 'Outside';
+        res = calculatePointInsidePolygon(
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          emulatorPolygon,
+        )
+          ? 'Inside'
+          : 'Outside';
+
+        const desc = 'Ran -> ' + i + ' : ' + pos + ' -> ' + res;
+        console.log(desc);
+
+        await BackgroundJob.updateNotification({taskDesc: desc});
       });
       await sleep(delay);
     }

@@ -1,7 +1,9 @@
+import React from 'react';
 import {Text, View} from 'react-native';
 import CurrentLocation from './components/CurrentLocation';
 import WatchLocation from './components/WatchLocation';
 import LibBackgroundActions from './components/LibBackgroundActions';
+import LibGoogleMap from './components/GoogleMaps/LibGoogleMap';
 // import LibExpoTask from './components/LibExpoTask';
 // import LibBackgroundGeolocation from './components/LibBackgroundGeolaction';
 // import LibBackgroundFetch from './components/LibBackgroundFetch';
@@ -26,6 +28,9 @@ export default function AppRouter() {
         {/* <LibBackgroundGeolocation /> */}
         {/* <LibBackgroundFetch /> */}
         <LibBackgroundActions />
+
+        <View style={{marginBottom: 8}} />
+        <LibGoogleMap />
       </View>
     </>
   );
