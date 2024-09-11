@@ -1,19 +1,36 @@
 import Geolocation from '@react-native-community/geolocation';
-import React, {useEffect, useState} from 'react';
-import {Alert, Button, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, View} from 'react-native';
+
+Geolocation.setRNConfiguration({
+  authorizationLevel: 'always',
+  skipPermissionRequests: true,
+  enableBackgroundLocationUpdates: true,
+});
 
 export default function WatchLocation() {
+  const [subscriptionId, setSubscriptionId] = useState<number | null>(null);
+
   const watchPosition = () => {
     try {
+      Geolocation.requestAuthorization(
+        () => {
+          console.log('Successful request.');
+        },
+        error => {
+          console.log('Error while requesting', error);
+        },
+      );
+
       const watchID = Geolocation.watchPosition(
         position => {
           console.log('watchPosition', position);
         },
-        error => Alert.alert('WatchPosition Error', JSON.stringify(error)),
+        error => console.log('WatchPosition Error', error),
       );
       setSubscriptionId(watchID);
     } catch (error) {
-      Alert.alert('WatchPosition Error', JSON.stringify(error));
+      console.log('WatchPosition Error', error);
     }
   };
 
@@ -22,25 +39,20 @@ export default function WatchLocation() {
     setSubscriptionId(null);
   };
 
-  const [subscriptionId, setSubscriptionId] = useState<number | null>(null);
-  useEffect(() => {
-    // const t = setTimeout(() => {
-    //   // This log does not work while app is in background
-    //   watchPosition();
-    // }, 1000 * 10);
-    // console.log('watch timeout', t);
-
-    return () => {
-      clearWatch();
-      // clearTimeout(t);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     clearWatch();
+  //   };
+  // }, []);
 
   return (
     <View>
       <View>
         {subscriptionId !== null ? (
-          <Button title="Clear Watch" onPress={clearWatch} />
+          <Button
+            title={`Clear Watch ${subscriptionId}`}
+            onPress={clearWatch}
+          />
         ) : (
           <Button title="Watch Position" onPress={watchPosition} />
         )}

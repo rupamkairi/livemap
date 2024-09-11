@@ -14,7 +14,7 @@ export default function AppRouter() {
     <>
       <View
         style={{
-          marginTop: 32,
+          marginTop: 48,
           paddingHorizontal: 16,
         }}>
         <Text style={{fontSize: 24, fontWeight: '900'}}>Locations</Text>

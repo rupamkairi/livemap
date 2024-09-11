@@ -31,7 +31,7 @@
       </activity>
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="API_KEY_HERE"/>
+        android:value="AIzaSyDMBD2F5Awxe7m_QZpz82B1tZ2ss0Ux1oI"/>
       <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" android:foregroundServiceType="shortService"/>
     </application>
 </manifest>
