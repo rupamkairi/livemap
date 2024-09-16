@@ -48,24 +48,22 @@ export default function LibGoogleMap() {
   if (!curLat || !curLong) return null;
 
   return (
-    <View style={{borderColor: 'red', borderWidth: 1, height: 400}}>
-      <MapView
-        style={{flex: 1}}
-        initialRegion={{
-          latitude: curLat,
-          longitude: curLong,
-          latitudeDelta: 0.0125,
-          longitudeDelta: 0.0125,
-        }}>
-        <Marker coordinate={{latitude: curLat, longitude: curLong}} />
-        <Polygon
-          coordinates={emulatorPolygon}
-          strokeColor="red"
-          strokeWidth={1}
-          fillColor={'rgba(255,0,0,0.125)'}
-          zIndex={2}
-        />
-      </MapView>
-    </View>
+    <MapView
+      style={{flex: 1}}
+      initialRegion={{
+        latitude: curLat,
+        longitude: curLong,
+        latitudeDelta: 0.0125,
+        longitudeDelta: 0.0125,
+      }}>
+      <Marker coordinate={{latitude: curLat, longitude: curLong}} />
+      <Polygon
+        coordinates={emulatorPolygon}
+        strokeColor="red"
+        strokeWidth={1}
+        fillColor={'rgba(255,0,0,0.125)'}
+        zIndex={2}
+      />
+    </MapView>
   );
 }

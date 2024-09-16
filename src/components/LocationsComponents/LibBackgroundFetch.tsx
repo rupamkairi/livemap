@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Alert, Button, ScrollView, Switch, Text, View} from 'react-native';
 import BackgroundFetch from 'react-native-background-fetch';
-import Event from '../Event';
+import Event from '../../Event';
 
 export default function LibBackgroundFetch() {
   const [enabled, setEnabled] = useState(false);

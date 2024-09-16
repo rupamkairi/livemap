@@ -25,7 +25,11 @@ export default function CurrentLocation() {
       position => {
         console.log('getCurrentPosition', position);
         setCoordinates(
-          `${position.coords.latitude}, ${position.coords.longitude}`,
+          `          Latitude: ${position.coords.latitude}, Longitude: ${
+            position.coords.longitude
+          } 
+          Accuracy: ${position.coords.accuracy} 
+          At: ${new Date(position.timestamp).toUTCString()}`,
         );
         // console.log(coords.current);
       },
@@ -37,8 +41,8 @@ export default function CurrentLocation() {
 
   return (
     <View>
-      <Text style={{fontSize: 20, fontWeight: '700'}}>Current Locations</Text>
-      <Text>coordinates: {coordinates}</Text>
+      <Text style={{fontSize: 16}}>Current Location coordinates</Text>
+      <Text style={{fontWeight: '500'}}>{coordinates}</Text>
     </View>
   );
 }
