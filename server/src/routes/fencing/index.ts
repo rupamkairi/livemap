@@ -10,4 +10,4 @@ fencingRouter.get("/polygons/:id", async (req, res) => {});
 fencingRouter.patch("/polygons/:id", async (req, res) => {});
 
 //
-fencingRouter.post("/agents/location", async (req, res) => {});
+fencingRouter.post("/agents/position", async (req, res) => {});

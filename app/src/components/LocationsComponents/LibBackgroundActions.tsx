@@ -13,6 +13,7 @@ import {
 import BackgroundJob from 'react-native-background-actions';
 import {emulatorPolygon} from '../GoogleMaps/LibGoogleMap';
 import {calculatePointInsidePolygon} from '../GoogleMaps/useCalculatePolygon';
+import {postTrackingPosition} from '../../api-utils';
 
 const ACTION_DELAY_DEFAULT = 5000;
 
@@ -24,6 +25,8 @@ const taskBackgroundLocation = async (taskData: any) => {
     const {delay} = taskData;
     for (let i = 0; BackgroundJob.isRunning(); i++) {
       Geolocation.getCurrentPosition(async position => {
+        await postTrackingPosition(position);
+
         const pos = position.coords.latitude + ', ' + position.coords.longitude;
 
         let res = calculatePointInsidePolygon(

@@ -1,6 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
+// import {postTrackingPosition} from '../../api-utils';
 
 Geolocation.setRNConfiguration({
   authorizationLevel: 'always',
@@ -13,23 +14,19 @@ export default function CurrentLocation() {
 
   useEffect(() => {
     Geolocation.requestAuthorization(
-      () => {
-        console.log('Successful request.');
-      },
+      () => {},
       error => {
         console.log('Error while requesting', error);
       },
     );
 
     Geolocation.getCurrentPosition(
-      position => {
-        console.log('getCurrentPosition', position);
+      async position => {
+        // await postTrackingPosition(position);
         setCoordinates(
-          `          Latitude: ${position.coords.latitude}, Longitude: ${
-            position.coords.longitude
-          } 
-          Accuracy: ${position.coords.accuracy} 
-          At: ${new Date(position.timestamp).toUTCString()}`,
+          `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}` +
+            `\nAccuracy: ${position.coords.accuracy} ` +
+            `\nAt: ${new Date(position.timestamp).toUTCString()}`,
         );
         // console.log(coords.current);
       },

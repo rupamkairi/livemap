@@ -1,6 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import React, {useState} from 'react';
 import {Button, Text, View} from 'react-native';
+import {postTrackingPosition} from '../../api-utils';
 
 Geolocation.setRNConfiguration({
   authorizationLevel: 'always',
@@ -14,17 +15,15 @@ export default function WatchLocation() {
   function startWatch() {
     try {
       Geolocation.requestAuthorization(
-        () => {
-          console.log('Successful request.');
-        },
+        () => {},
         error => {
           console.log('Error while requesting', error);
         },
       );
 
       const watchID = Geolocation.watchPosition(
-        position => {
-          console.log('Watching Position', position);
+        async position => {
+          await postTrackingPosition(position);
         },
         error => console.log('watchPosition Error', error),
       );
