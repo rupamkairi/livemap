@@ -3,7 +3,7 @@ import { agentPosition } from "../../models/agentPosition";
 
 export const agentPositionRouter = Router();
 
-agentPositionRouter.get("/agents/position", async (req, res) => {
+agentPositionRouter.get("", async (req, res) => {
   try {
     return res.sendStatus(200);
   } catch (error) {
@@ -18,7 +18,7 @@ agentPositionRouter.post("", async (req, res) => {
     const ap = await (
       await agentPosition.create({ agentId, timestamp, meta })
     ).save();
-    console.log(ap);
+    // console.log(ap);
     // return res.sendStatus(201);
     return res.status(201).json(ap);
   } catch (error) {

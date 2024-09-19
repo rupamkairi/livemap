@@ -23,6 +23,7 @@ export default function WatchLocation() {
 
       const watchID = Geolocation.watchPosition(
         async position => {
+          console.log('Watch Position updated.');
           await postTrackingPosition(position);
         },
         error => console.log('watchPosition Error', error),
