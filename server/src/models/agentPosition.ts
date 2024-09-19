@@ -1,5 +1,5 @@
-import mongoose from "../services/database/database";
 import { Schema } from "mongoose";
+import mongoose from "../services/database/database";
 
 export const agentPositionSchema = new mongoose.Schema(
   {

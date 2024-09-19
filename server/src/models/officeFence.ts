@@ -1,18 +1,21 @@
 import { Schema } from "mongoose";
 import mongoose from "../services/database/database";
 
-export const agentSchema = new mongoose.Schema(
+export const officeFenceSchema = new mongoose.Schema(
   {
     companyId: {
       type: Schema.Types.ObjectId,
       ref: "companies",
     },
-    officeIds: {
-      type: [Schema.Types.ObjectId],
+    officeId: {
+      type: Schema.Types.ObjectId,
       ref: "offices",
+    },
+    polygon: {
+      type: Schema.Types.Mixed,
     },
   },
   { timestamps: true }
 );
 
-export const agent = mongoose.model("agents", agentSchema);
+export const officeFence = mongoose.model("office_fences", officeFenceSchema);

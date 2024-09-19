@@ -1,13 +1,51 @@
 import { Router } from "express";
+import { officeFence } from "../../models/officeFence";
+import { office } from "../../models/office";
 
 export const fencingRouter = Router();
 
 //
-fencingRouter.post("/polygons", async (req, res) => {});
+fencingRouter.get("/offices/:officeId", async (req, res) => {
+  try {
+    const { officeId } = req.params;
 
-fencingRouter.get("/polygons/:id", async (req, res) => {});
+    let o = await office.findOne({ _id: officeId }).populate("companyId");
 
-fencingRouter.patch("/polygons/:id", async (req, res) => {});
+    return res.status(200).json(o);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send(error);
+  }
+});
 
-//
-fencingRouter.post("/agents/position", async (req, res) => {});
+fencingRouter.post("/offices/:officeId/officeFences", async (req, res) => {});
+
+fencingRouter.get(
+  "/offices/:officeId/officeFences/:officeFenceId",
+  async (req, res) => {
+    try {
+      const { officeId, officeFenceId } = req.params;
+
+      const of = await officeFence.findOne({ _id: officeFenceId, officeId });
+
+      return res.status(200).json(of);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+fencingRouter.patch(
+  "/offices/:officeId/officeFences/:officeFenceId",
+  async (req, res) => {
+    try {
+      const { officeId, officeFenceId } = req.params;
+
+      const of = await officeFence.findOne({ _id: officeFenceId, officeId });
+
+      return res.status(200).json(of);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
