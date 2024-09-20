@@ -6,6 +6,8 @@ import axios, {AxiosError} from 'axios';
 const apiURL = 'http://localhost:8000/api';
 
 const agentId = '66eb0e871acdc16eb4f6407b';
+const officeId = '66ebbf0f9edad55a97e8317d';
+const officeFenceId = '66ebbfdc9edad55a97e83185';
 
 export async function testApi() {
   try {
@@ -31,5 +33,40 @@ export async function postTrackingPosition(position: any) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data);
     }
+  }
+}
+
+export async function getOffice() {
+  try {
+    const res = await axios.get(`${apiURL}/fencing/offices/${officeId}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getOfficeFence() {
+  try {
+    const res = await axios.get(
+      `${apiURL}/fencing/offices/${officeId}/officeFences/${officeFenceId}`,
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function patchOfficeFence({polygon}: any) {
+  try {
+    const body = {
+      polygon,
+    };
+    const res = await axios.patch(
+      `${apiURL}/fencing/offices/${officeId}/officeFences/${officeFenceId}`,
+      body,
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
   }
 }

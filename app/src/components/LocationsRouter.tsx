@@ -4,6 +4,7 @@ import LibGoogleMap from '../components/GoogleMaps/LibGoogleMap';
 import CurrentLocation from '../components/LocationsComponents/CurrentLocation';
 import LibBackgroundActions from '../components/LocationsComponents/LibBackgroundActions';
 import WatchLocation from '../components/LocationsComponents/WatchLocation';
+import UpdateOfficeFence from './Offices/UpdateOfficeFence';
 
 export default function LocationsRouter() {
   return (
@@ -24,6 +25,10 @@ export default function LocationsRouter() {
         <View style={{minHeight: 360}}>
           <LibGoogleMap />
         </View>
+      </View>
+
+      <View style={router.card}>
+        <UpdateOfficeFence />
       </View>
     </ScrollView>
   );
