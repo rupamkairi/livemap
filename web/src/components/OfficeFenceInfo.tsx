@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiURL, example } from "../constants";
 import { useQuery } from "@tanstack/react-query";
 
-async function getOfficeFenceInfo() {
+export async function getOfficeFence() {
   try {
     const officeId = example.officeId;
     const officeFenceId = example.officeFenceId;
@@ -18,7 +18,7 @@ async function getOfficeFenceInfo() {
 export default function OfficeFenceInfo() {
   const { data, isLoading } = useQuery({
     queryKey: ["officeFenceInfo"],
-    queryFn: getOfficeFenceInfo,
+    queryFn: getOfficeFence,
   });
 
   return (
@@ -28,7 +28,7 @@ export default function OfficeFenceInfo() {
         <div>Loading...</div>
       ) : (
         <div className="text-sm">
-          <pre>{JSON.stringify(data, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         </div>
       )}
     </div>

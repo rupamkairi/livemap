@@ -40,8 +40,14 @@ fencingRouter.patch(
   async (req, res) => {
     try {
       const { officeId, officeFenceId } = req.params;
+      const { polygon } = req.body;
+      // console.log(polygon);
 
-      const of = await officeFence.findOne({ _id: officeFenceId, officeId });
+      const of = await officeFence.findOneAndUpdate(
+        { _id: officeFenceId, officeId },
+        { polygon },
+        { new: true }
+      );
 
       return res.status(200).json(of);
     } catch (error) {

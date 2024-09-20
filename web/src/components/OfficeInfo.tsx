@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { apiURL, example } from "../constants";
 
-async function getOfficeInfo() {
+export async function getOffice() {
   try {
     const officeId = example.officeId;
     const res = await axios.get(`${apiURL}/fencing/offices/${officeId}`);
@@ -15,7 +15,7 @@ async function getOfficeInfo() {
 export default function OfficeInfo() {
   const { data, isLoading } = useQuery({
     queryKey: ["officeInfo"],
-    queryFn: getOfficeInfo,
+    queryFn: getOffice,
   });
 
   return (
