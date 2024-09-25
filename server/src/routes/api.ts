@@ -9,6 +9,6 @@ apiRouter.get("/", (req, res) => {
   res.status(200).json({ status: "success" });
 });
 
-apiRouter.use("/agent-position", agentPositionRouter);
+apiRouter.use("/agent-positions", agentPositionRouter);
 apiRouter.use("/tracking", trackingRouter);
 apiRouter.use("/fencing", fencingRouter);

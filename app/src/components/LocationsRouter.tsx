@@ -5,6 +5,7 @@ import CurrentLocation from '../components/LocationsComponents/CurrentLocation';
 import LibBackgroundActions from '../components/LocationsComponents/LibBackgroundActions';
 import WatchLocation from '../components/LocationsComponents/WatchLocation';
 import UpdateOfficeFence from './Offices/UpdateOfficeFence';
+import AgentTimeline from '../Agents/AgentTimeline';
 
 export default function LocationsRouter() {
   return (
@@ -29,6 +30,10 @@ export default function LocationsRouter() {
 
       <View style={router.card}>
         <UpdateOfficeFence />
+      </View>
+
+      <View style={router.card}>
+        <AgentTimeline />
       </View>
     </ScrollView>
   );

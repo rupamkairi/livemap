@@ -11,9 +11,8 @@ const officeFenceId = '66ebbfdc9edad55a97e83185';
 
 export async function testApi() {
   try {
-    const res = await axios.get(`${apiURL}/agent-position`);
-    // const res = await axios.get(apiURL);
-    // console.log('Response', res.data);
+    const res = await axios.get(`${apiURL}`);
+    console.log('Response', res.data);
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data);
@@ -23,12 +22,13 @@ export async function testApi() {
 
 export async function postTrackingPosition(position: any) {
   try {
-    const res = await axios.post(`${apiURL}/agent-position`, {
+    const res = await axios.post(`${apiURL}/agent-positions`, {
       agentId,
       timestamp: position.timestamp,
       meta: {position},
     });
     // console.log("Response", res.data);
+    return res.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error.response?.data);
@@ -65,6 +65,18 @@ export async function patchOfficeFence({polygon}: any) {
       `${apiURL}/fencing/offices/${officeId}/officeFences/${officeFenceId}`,
       body,
     );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAgentPositions(date?: any) {
+  try {
+    const qs = new URLSearchParams();
+    qs.append('date', date ? new Date(date).toISOString() : '');
+    console.log({qs: qs.toString()});
+    const res = await axios.get(`${apiURL}/agent-positions?${qs.toString()}`);
     return res.data;
   } catch (error) {
     console.log(error);

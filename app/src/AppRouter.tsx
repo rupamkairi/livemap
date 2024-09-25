@@ -1,15 +1,18 @@
 import React, {useEffect} from 'react';
 import LocationsRouter from './components/LocationsRouter';
-import {testApi} from './api-utils';
+// import {testApi} from './api-utils';
+import {SafeAreaView} from 'react-native';
 
 export default function AppRouter() {
-  useEffect(() => {
-    testApi();
-  }, []);
+  // useEffect(() => {
+  //   testApi();
+  // }, []);
 
   return (
     <>
-      <LocationsRouter />
+      <SafeAreaView>
+        <LocationsRouter />
+      </SafeAreaView>
     </>
   );
 }
