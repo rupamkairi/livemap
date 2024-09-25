@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import useCurrentLocation from './useCurrentLocation';
 import {useEffect} from 'react';
 import MapView, {Marker, Polygon} from 'react-native-maps';
-import {Button, View} from 'react-native';
+import {View} from 'react-native';
+import {Button} from 'react-native-paper';
 
 export default function MapPolygonEditor({
   polygon: propPolygon,
@@ -55,17 +56,19 @@ export default function MapPolygonEditor({
           justifyContent: 'space-around',
         }}>
         <Button
-          title="Clear Fence"
+          style={{flex: 1}}
           onPress={() => {
             setPolygon([]);
-          }}
-        />
+          }}>
+          Clear Fence
+        </Button>
         <Button
-          title="Confirm Fence"
+          style={{flex: 1}}
           onPress={() => {
             onConfirm(polygon);
-          }}
-        />
+          }}>
+          Confirm Fence
+        </Button>
       </View>
     </View>
   );

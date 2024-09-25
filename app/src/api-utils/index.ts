@@ -1,9 +1,9 @@
 import axios, {AxiosError} from 'axios';
 
 // android emulator localhost
-// const apiURL = 'http://10.0.2.2:8000/api';
+const apiURL = 'http://10.0.2.2:8000/api';
 // ios emulator localhost
-const apiURL = 'http://localhost:8000/api';
+// const apiURL = 'http://localhost:8000/api';
 
 const agentId = '66eb0e871acdc16eb4f6407b';
 const officeId = '66ebbf0f9edad55a97e8317d';

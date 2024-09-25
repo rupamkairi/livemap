@@ -13,11 +13,10 @@ export default function AgentTimeline() {
         return;
       }
 
+      // console.log(JSON.stringify(data, null, 2));
       const _positions = data.map(el => ({
         timestamp: el.timestamp,
-        latitude: el.meta.position.coords.latitude,
-        longitude: el.meta.position.coords.longitude,
-        accuracy: el.meta.position.coords.accuracy,
+        ...el.meta.position.coords,
       }));
 
       setPositions(_positions);

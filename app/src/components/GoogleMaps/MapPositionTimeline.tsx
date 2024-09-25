@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import MapView, {Marker, Polyline} from 'react-native-maps';
 import useCurrentLocation from './useCurrentLocation';
 
@@ -27,11 +27,20 @@ export default function MapPositionTimeline({positions}: any) {
           {positions?.map((pos, key) => (
             <Marker
               key={key}
-              coordinate={{latitude: pos.latitude, longitude: pos.longitude}}
-            />
+              rotation={pos.heading}
+              coordinate={{latitude: pos.latitude, longitude: pos.longitude}}>
+              <Image
+                source={require('./direction_marker.png')}
+                style={{height: 8, width: 8}}
+              />
+            </Marker>
           ))}
           {positions && (
-            <Polyline coordinates={positions} strokeColor={'rgba(255,0,0,1)'} />
+            <Polyline
+              coordinates={positions}
+              strokeWidth={2}
+              strokeColor={'rgba(255,0,0,0.5)'}
+            />
           )}
         </MapView>
       </View>
