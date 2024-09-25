@@ -1,19 +1,11 @@
 import Geolocation from '@react-native-community/geolocation';
 import React, {useState} from 'react';
-import {
-  Alert,
-  Button,
-  Linking,
-  Platform,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Alert, Button, Linking, Platform, View} from 'react-native';
 import BackgroundJob from 'react-native-background-actions';
+import {Text, TextInput} from 'react-native-paper';
+import {postTrackingPosition} from '../../api-utils';
 import {emulatorPolygon} from '../GoogleMaps/LibGoogleMap';
 import {calculatePointInsidePolygon} from '../GoogleMaps/useCalculatePolygon';
-import {postTrackingPosition} from '../../api-utils';
 
 const ACTION_DELAY_DEFAULT = 5000;
 
@@ -96,12 +88,10 @@ export default function LibBackgroundActions() {
 
   return (
     <View>
-      <Text style={{fontSize: 16}}>Background Action (in seconds)</Text>
-      <View style={component.settingsItem}>
-        <Text>Action delay in seconds (min. 5)</Text>
+      <View style={{marginBottom: 8}}>
         <TextInput
+          label={'Action delay in seconds (min. 5)'}
           keyboardType="numeric"
-          placeholder="in seconds"
           value={(actionDelay / 1000).toString()}
           onChangeText={text => {
             if (text === '') {
@@ -111,18 +101,14 @@ export default function LibBackgroundActions() {
             } else {
               text = +text < 5 ? '5' : text;
             }
-
             setActionDelay(+text * 1000);
           }}
-          style={component.settingsItemInput}
         />
+        <View>
+          <Button title="Toggle Background Job" onPress={toggleBackground} />
+        </View>
       </View>
-      <View>
-        <Button
-          title="Toggle Background Job"
-          onPress={toggleBackground}></Button>
-      </View>
-      <Text style={{color: 'red'}}>
+      <Text variant="bodySmall" style={{color: 'red'}}>
         ** If it is running minimise the app & you should see a Sticky
         Notification.
       </Text>
@@ -134,7 +120,7 @@ export default function LibBackgroundActions() {
 function PlatformWarning() {
   if (Platform.OS === 'ios') {
     return (
-      <Text style={{color: 'red'}}>
+      <Text variant="bodySmall" style={{color: 'red'}}>
         ** This task will not keep your app alive in the background by itself,
         use other library like react-native-track-player that use audio,
         geolocalization, etc. to keep your app alive in the background while you
@@ -145,7 +131,7 @@ function PlatformWarning() {
 
   if (Platform.OS === 'android') {
     return (
-      <Text style={{color: 'orange'}}>
+      <Text variant="bodySmall" style={{color: 'orange'}}>
         ** Make sure to Enable the Background Location Permission from the "App
         Info", then "Permissions", then "Location", then select "All the time".
       </Text>
@@ -154,19 +140,3 @@ function PlatformWarning() {
 
   return null;
 }
-
-const component = StyleSheet.create({
-  settingsItem: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 16,
-    marginBottom: 8,
-  },
-  settingsItemInput: {
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
-    paddingVertical: 2,
-  },
-});

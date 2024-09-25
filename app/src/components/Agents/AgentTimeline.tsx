@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {getAgentPositions} from '../api-utils';
-import MapPositionTimeline from '../components/GoogleMaps/MapPositionTimeline';
+import {getAgentPositions} from '../../api-utils';
+import MapPositionTimeline from '../../components/GoogleMaps/MapPositionTimeline';
 
 export default function AgentTimeline() {
   const [positions, setPositions] = useState();

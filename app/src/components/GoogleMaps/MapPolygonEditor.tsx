@@ -48,7 +48,12 @@ export default function MapPolygonEditor({
           )}
         </MapView>
       </View>
-      <View>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+        }}>
         <Button
           title="Clear Fence"
           onPress={() => {

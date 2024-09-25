@@ -1,6 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
+import {Text} from 'react-native-paper';
 // import {postTrackingPosition} from '../../api-utils';
 
 Geolocation.setRNConfiguration({
@@ -38,8 +39,7 @@ export default function CurrentLocation() {
 
   return (
     <View>
-      <Text style={{fontSize: 16}}>Current Location coordinates</Text>
-      <Text style={{fontWeight: '500'}}>{coordinates}</Text>
+      <Text variant="bodySmall">{coordinates}</Text>
     </View>
   );
 }
