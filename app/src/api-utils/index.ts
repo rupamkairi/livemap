@@ -75,7 +75,7 @@ export async function getAgentPositions(date?: any) {
   try {
     const qs = new URLSearchParams();
     qs.append('date', date ? new Date(date).toISOString() : '');
-    console.log({qs: qs.toString()});
+    // console.log({qs: qs.toString()});
     const res = await axios.get(`${apiURL}/agent-positions?${qs.toString()}`);
     return res.data;
   } catch (error) {

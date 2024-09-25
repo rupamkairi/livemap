@@ -9,7 +9,9 @@ export default function AgentTimeline() {
   useEffect(() => {
     (async () => {
       const data = await getAgentPositions();
-      if (!data?.length) return;
+      if (!data?.length) {
+        return;
+      }
 
       const _positions = data.map(el => ({
         timestamp: el.timestamp,
@@ -18,7 +20,6 @@ export default function AgentTimeline() {
         accuracy: el.meta.position.coords.accuracy,
       }));
 
-      console.log(JSON.stringify(_positions, null, 2), 'get call ');
       setPositions(_positions);
     })();
   }, []);
