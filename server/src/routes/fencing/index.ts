@@ -18,10 +18,10 @@ fencingRouter.get("/offices/:officeId", async (req, res) => {
   }
 });
 
-fencingRouter.post("/offices/:officeId/officeFences", async (req, res) => {});
+fencingRouter.post("/offices/:officeId/office-fences", async (req, res) => {});
 
 fencingRouter.get(
-  "/offices/:officeId/officeFences/:officeFenceId",
+  "/offices/:officeId/office-fences/:officeFenceId",
   async (req, res) => {
     try {
       const { officeId, officeFenceId } = req.params;
@@ -36,7 +36,7 @@ fencingRouter.get(
 );
 
 fencingRouter.patch(
-  "/offices/:officeId/officeFences/:officeFenceId",
+  "/offices/:officeId/office-fences/:officeFenceId",
   async (req, res) => {
     try {
       const { officeId, officeFenceId } = req.params;

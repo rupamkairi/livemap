@@ -48,7 +48,7 @@ export async function getOffice() {
 export async function getOfficeFence() {
   try {
     const res = await axios.get(
-      `${apiURL}/fencing/offices/${officeId}/officeFences/${officeFenceId}`,
+      `${apiURL}/fencing/offices/${officeId}/office-fences/${officeFenceId}`,
     );
     return res.data;
   } catch (error) {
@@ -62,7 +62,7 @@ export async function patchOfficeFence({polygon}: any) {
       polygon,
     };
     const res = await axios.patch(
-      `${apiURL}/fencing/offices/${officeId}/officeFences/${officeFenceId}`,
+      `${apiURL}/fencing/offices/${officeId}/office-fences/${officeFenceId}`,
       body,
     );
     return res.data;
