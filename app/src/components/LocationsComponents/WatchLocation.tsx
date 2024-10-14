@@ -1,7 +1,7 @@
 import Geolocation from '@react-native-community/geolocation';
 import React, {useState} from 'react';
 import {Button, View} from 'react-native';
-import {postTrackingPosition} from '../../api-utils';
+import {postTrackingPosition} from '../../utils/api-calls';
 import {Text} from 'react-native-paper';
 
 Geolocation.setRNConfiguration({

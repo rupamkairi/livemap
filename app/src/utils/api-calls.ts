@@ -1,13 +1,10 @@
 import axios, {AxiosError} from 'axios';
+import {agentId, officeFenceId, officeId} from '../constants';
 
 // android emulator localhost
-const apiURL = 'http://10.0.2.2:8000/api';
+// const apiURL = 'http://10.0.2.2:8000/api';
 // ios emulator localhost
-// const apiURL = 'http://localhost:8000/api';
-
-const agentId = '66eb0e871acdc16eb4f6407b';
-const officeId = '66ebbf0f9edad55a97e8317d';
-const officeFenceId = '66ebbfdc9edad55a97e83185';
+const apiURL = 'http://localhost:8000/api';
 
 export async function testApi() {
   try {

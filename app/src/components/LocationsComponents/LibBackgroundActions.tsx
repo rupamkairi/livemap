@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Alert, Button, Linking, Platform, View} from 'react-native';
 import BackgroundJob from 'react-native-background-actions';
 import {Text, TextInput} from 'react-native-paper';
-import {postTrackingPosition} from '../../api-utils';
+import {postTrackingPosition} from '../../utils/api-calls';
 import {emulatorPolygon} from '../GoogleMaps/LibGoogleMap';
 import {calculatePointInsidePolygon} from '../GoogleMaps/useCalculatePolygon';
 

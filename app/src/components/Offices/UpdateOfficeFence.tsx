@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Button, View} from 'react-native';
 import MapPolygonEditor from '../GoogleMaps/MapPolygonEditor';
 import {useState} from 'react';
-import {getOfficeFence, patchOfficeFence} from '../../api-utils';
+import {getOfficeFence, patchOfficeFence} from '../../utils/api-calls';
 
 export default function UpdateOfficeFence() {
   const [polygon, setPolygon] = useState();

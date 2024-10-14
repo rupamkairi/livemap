@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {getAgentPositions} from '../../api-utils';
+import {getAgentPositions} from '../../utils/api-calls';
 import MapPositionTimeline from '../../components/GoogleMaps/MapPositionTimeline';
 import Geolocation from '@react-native-community/geolocation';
 
