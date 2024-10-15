@@ -8,6 +8,8 @@ const server = createServer(app);
 export const socketEvents = {
   createRoom: "create-room",
   joinRoom: "join-room",
+  sendToRoom: "send-to-room",
+  broadcastToRoom: "broadcast-to-room",
 };
 
 // const agentId = "66eb0e871acdc16eb4f6407b";
@@ -30,6 +32,11 @@ io.on("connection", (socket) => {
   socket.on(socketEvents.joinRoom, (data) => {
     socket.join("ROOM_" + data.agentId);
     console.log("join-room event received");
+  });
+
+  socket.on(socketEvents.sendToRoom, (data) => {
+    console.log("bc rec, fwd to", "ROOM_" + data.agentId);
+    socket.to("ROOM_" + data.agentId).emit(socketEvents.broadcastToRoom, data);
   });
 
   socket.on("disconnect", () => {

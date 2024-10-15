@@ -1,8 +1,10 @@
 import Geolocation from '@react-native-community/geolocation';
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, View} from 'react-native';
-import {postTrackingPosition} from '../../utils/api-calls';
 import {Text} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import {agentSlice} from '../../stores/agent.slice';
+import {startWatch, stopWatch} from '../../utils/geoloaction-watch';
 
 Geolocation.setRNConfiguration({
   authorizationLevel: 'always',
@@ -11,42 +13,25 @@ Geolocation.setRNConfiguration({
 });
 
 export default function WatchLocation() {
-  const [subscriptionId, setSubscriptionId] = useState<number | null>(null);
-
-  function startWatch() {
-    try {
-      Geolocation.requestAuthorization(
-        () => {},
-        error => {
-          console.log('Error while requesting', error);
-        },
-      );
-
-      const watchID = Geolocation.watchPosition(
-        async position => {
-          console.log('Watch Position updated.');
-          await postTrackingPosition(position);
-        },
-        error => console.log('watchPosition Error', error),
-      );
-      setSubscriptionId(watchID);
-    } catch (error) {
-      console.log('startWatch', error);
-    }
-  }
-
-  function stopWatch() {
-    subscriptionId !== null && Geolocation.clearWatch(subscriptionId);
-    setSubscriptionId(null);
-  }
+  const watchId = useSelector(agentSlice.selectors.selectWatchId);
 
   return (
     <View>
       <View style={{marginBottom: 8}}>
-        {subscriptionId !== null ? (
-          <Button title="Stop Watching" onPress={stopWatch} />
+        {watchId !== null ? (
+          <Button
+            title="Stop Watching"
+            onPress={() => {
+              stopWatch();
+            }}
+          />
         ) : (
-          <Button title="Start Watching" onPress={startWatch} />
+          <Button
+            title="Start Watching"
+            onPress={() => {
+              startWatch();
+            }}
+          />
         )}
       </View>
       <Text variant="bodySmall" style={{color: 'red'}}>

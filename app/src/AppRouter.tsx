@@ -14,8 +14,8 @@ export default function AppRouter() {
     console.log({active});
     if (!active) return;
 
-    // SocketConnector.createRoom();
-    SocketConnector.joinRoom();
+    SocketConnector.createRoom();
+    // SocketConnector.joinRoom();
   }, []);
 
   return (

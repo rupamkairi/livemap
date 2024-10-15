@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {Card} from 'react-native-paper';
 import AgentTimeline from '../components/Agents/AgentTimeline';
 
 export default function AgentsScreen() {
+  useEffect(() => {
+    // SocketConnector.createRoom();
+  }, []);
+
   return (
     <View
       style={{

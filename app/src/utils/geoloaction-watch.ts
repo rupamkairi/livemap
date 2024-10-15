@@ -1,4 +1,8 @@
 import Geolocation from '@react-native-community/geolocation';
+import {store} from '../stores';
+import {setWatchId} from '../stores/agent.slice';
+import {trackingSlice} from '../stores/tracking.slice';
+import {postTrackingPosition} from './api-calls';
 
 export function startWatch() {
   try {
@@ -9,18 +13,30 @@ export function startWatch() {
       },
     );
 
-    const watchID = Geolocation.watchPosition(
+    const watchId = Geolocation.watchPosition(
       async position => {
         console.log('Watch Position updated.');
+
+        const _position = {
+          timestamp: position.timestamp,
+          ...position.coords,
+        };
+        store.dispatch(
+          trackingSlice.actions.appendPositions({position: _position}),
+        );
+
+        await postTrackingPosition(position);
       },
       error => console.log('watchPosition Error', error),
     );
+
+    store.dispatch(setWatchId(watchId));
   } catch (error) {
     console.log('startWatch', error);
   }
 }
 
 export function stopWatch() {
-  subscriptionId !== null && Geolocation.clearWatch(subscriptionId);
-  setSubscriptionId(null);
+  if (!store.getState().agent.watchId) return;
+  Geolocation.clearWatch(store.getState().agent.watchId! as number);
 }

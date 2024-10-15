@@ -5,11 +5,17 @@ export const agentSlice = createSlice({
   name: 'agent',
   initialState: {
     agentId: agentId,
+    watchId: null,
   },
   selectors: {
     selectAgentId: state => state.agentId,
+    selectWatchId: state => state.watchId,
   },
-  reducers: {},
+  reducers: {
+    setWatchId: (state, action) => {
+      state.watchId = action.payload;
+    },
+  },
 });
 
-export const {} = agentSlice.actions;
+export const {setWatchId} = agentSlice.actions;

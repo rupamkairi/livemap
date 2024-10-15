@@ -1,11 +1,18 @@
 import {io} from 'socket.io-client';
-import type {Socket} from 'socket.io-client';
+import {Socket} from 'socket.io-client';
 import {store} from '../stores';
 
 // const wsURL = 'ws://10.0.2.2:8000';
 const wsURL = 'http://localhost:8000';
 
-export let instance: SocketConnector | null;
+export let socketInstance: SocketConnector | null;
+
+export const socketEvents = {
+  createRoom: 'create-room',
+  joinRoom: 'join-room',
+  sendToRoom: 'send-to-room',
+  broadcastToRoom: 'broadcast-to-room',
+};
 
 export class SocketConnector {
   uri: string;
@@ -14,14 +21,25 @@ export class SocketConnector {
   constructor(uri?: string) {
     this.uri = uri || wsURL;
 
-    if (instance instanceof SocketConnector) {
-      return instance;
+    if (socketInstance instanceof SocketConnector) {
+      return socketInstance;
     }
 
     SocketConnector.socket = io(this.uri);
 
-    instance = this;
-    return instance;
+    SocketConnector.socket.on(socketEvents.broadcastToRoom, args => {
+      console.log('bc rec', args);
+    });
+
+    SocketConnector.socket.on('disconnect', () => {
+      console.log('disconnected');
+    });
+    SocketConnector.socket.on('reconnect', () => {
+      console.log('reconnected');
+    });
+
+    socketInstance = this;
+    return socketInstance;
   }
 
   static createRoom() {
@@ -36,12 +54,21 @@ export class SocketConnector {
     });
   }
 
+  static joinRoomByAgentId({agentId}: any) {
+    this.socket.emit(socketEvents.joinRoom, {
+      agentId: agentId,
+    });
+  }
+
+  static sendToRooms({agentId, position}: any) {
+    this.socket.emit(socketEvents.sendToRoom, {
+      agentId,
+      position,
+      message: 'broadcast this to others',
+    });
+  }
+
   static send() {}
 }
 
 new SocketConnector();
-
-export const socketEvents = {
-  createRoom: 'create-room',
-  joinRoom: 'join-room',
-};
