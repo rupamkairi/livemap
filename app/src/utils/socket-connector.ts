@@ -28,7 +28,7 @@ export class SocketConnector {
     SocketConnector.socket = io(this.uri);
 
     SocketConnector.socket.on(socketEvents.broadcastToRoom, args => {
-      console.log('bc rec', args);
+      console.log('broadcast received', args);
     });
 
     SocketConnector.socket.on('disconnect', () => {
@@ -38,11 +38,16 @@ export class SocketConnector {
       console.log('reconnected');
     });
 
+    SocketConnector.socket.onAny((event, ...args) => {
+      console.log('got', event, args);
+    });
+
     socketInstance = this;
     return socketInstance;
   }
 
   static createRoom() {
+    console.log(this.socket.active, this.socket.id);
     this.socket.emit(socketEvents.createRoom, {
       agentId: store.getState().agent.agentId,
     });
@@ -61,6 +66,7 @@ export class SocketConnector {
   }
 
   static sendToRooms({agentId, position}: any) {
+    console.log(this.socket.active, this.socket.id);
     this.socket.emit(socketEvents.sendToRoom, {
       agentId,
       position,

@@ -9,6 +9,10 @@
     <script type="module">
       import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
       const socket = io("http://localhost:8000");
+      io.emit("join-room", { agentId: "66eb0e871acdc16eb4f6407b" });
+      io.on("broadcast-to-room", () => {
+        console.log("something bra");
+      });
     </script>
   </body>
 </html>

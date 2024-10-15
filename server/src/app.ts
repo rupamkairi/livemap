@@ -1,9 +1,7 @@
 import cors from "cors";
 import express from "express";
-import { apiRouter } from "./routes/api";
 import "./models";
-import { Server } from "socket.io";
-import { createServer } from "http";
+import { apiRouter } from "./routes/api";
 
 const app = express();
 

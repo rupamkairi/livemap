@@ -22,25 +22,29 @@ const io = new Server(server, {
 });
 io.on("connection", (socket) => {
   // createDummyRoom(socket);
-  console.log("A user connected");
+  console.log("A user connected", socket.id);
 
   socket.on(socketEvents.createRoom, (data) => {
     socket.join("ROOM_" + data.agentId);
-    console.log("create-room event received");
+    console.log("create-room event received", socket.id);
   });
 
   socket.on(socketEvents.joinRoom, (data) => {
     socket.join("ROOM_" + data.agentId);
-    console.log("join-room event received");
+    console.log("join-room event received", socket.id);
   });
 
   socket.on(socketEvents.sendToRoom, (data) => {
-    console.log("bc rec, fwd to", "ROOM_" + data.agentId);
+    console.log(
+      "send received, broadcasting to",
+      "ROOM_" + data.agentId,
+      socket.id
+    );
     socket.to("ROOM_" + data.agentId).emit(socketEvents.broadcastToRoom, data);
   });
 
   socket.on("disconnect", () => {
-    console.log("A user disconnected");
+    console.log("A user disconnected", socket.id);
   });
 });
 
