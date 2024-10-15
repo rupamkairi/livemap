@@ -9,6 +9,7 @@ import {
 } from "date-fns";
 import { officeFence } from "../../models";
 import { computePointInsidePolygon } from "../../services/compute/compute";
+import { Schema, Types } from "mongoose";
 
 export const agentPositionRouter = Router();
 
@@ -22,23 +23,26 @@ export const agentPositionRouter = Router();
 
 agentPositionRouter.get("", async (req, res) => {
   try {
-    const date = req.query.date;
+    const { date, agentId } = req.query;
+    console.log({ date, agentId });
 
-    let dateFilter = {};
+    let filter = {};
     if (!date) {
-      dateFilter = {
+      filter = {
         timestamp: { $gte: startOfToday(), $lt: endOfToday() },
+        // agentId: new Schema.ObjectId(agentId as string),
       };
     } else {
-      dateFilter = {
+      filter = {
         timestamp: {
           $gte: startOfDay(toDate(date as string)),
           $lt: endOfDay(toDate(date as string)),
         },
+        agentId: new Types.ObjectId(agentId as string),
       };
     }
 
-    const ap = await agentPosition.find({ ...dateFilter });
+    const ap = await agentPosition.find({ ...filter });
     return res.status(200).json(ap);
   } catch (error) {
     console.log(error);

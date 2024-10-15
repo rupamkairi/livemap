@@ -4,17 +4,25 @@ import AgentsScreen from './Screens/Agents';
 import OfficesScreen from './Screens/Offices';
 import TrackersScreen from './Screens/Trackers';
 import {SocketConnector} from './utils/socket-connector';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {store} from './stores';
+import {agentSlice} from './stores/agent.slice';
 
 const Tab = createBottomTabNavigator();
 
 export default function AppRouter() {
   useEffect(() => {
-    console.log('AppRouter');
     const active = SocketConnector.socket.active;
-    console.log({active});
     if (!active) return;
 
-    SocketConnector.createRoom();
+    (async () => {
+      const _agentId = await AsyncStorage.getItem('agentId');
+      const _trackAgentId = await AsyncStorage.getItem('trackAgentId');
+      store.dispatch(agentSlice.actions.setAgentId(_agentId));
+      store.dispatch(agentSlice.actions.setTrackAgentId(_trackAgentId));
+      SocketConnector.createRoom();
+    })();
+
     // SocketConnector.joinRoom();
   }, []);
 

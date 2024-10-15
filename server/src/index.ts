@@ -26,12 +26,16 @@ io.on("connection", (socket) => {
 
   socket.on(socketEvents.createRoom, (data) => {
     socket.join("ROOM_" + data.agentId);
-    console.log("create-room event received", socket.id);
+    console.log(
+      "create-room event received",
+      "ROOM_" + data.agentId,
+      socket.id
+    );
   });
 
   socket.on(socketEvents.joinRoom, (data) => {
     socket.join("ROOM_" + data.agentId);
-    console.log("join-room event received", socket.id);
+    console.log("join-room event received", "ROOM_" + data.agentId, socket.id);
   });
 
   socket.on(socketEvents.sendToRoom, (data) => {
@@ -40,7 +44,9 @@ io.on("connection", (socket) => {
       "ROOM_" + data.agentId,
       socket.id
     );
-    socket.to("ROOM_" + data.agentId).emit(socketEvents.broadcastToRoom, data);
+    socket.broadcast
+      .to("ROOM_" + data.agentId)
+      .emit(socketEvents.broadcastToRoom, data);
   });
 
   socket.on("disconnect", () => {

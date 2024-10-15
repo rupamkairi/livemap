@@ -30,6 +30,7 @@ export function startWatch() {
       error => console.log('watchPosition Error', error),
     );
 
+    console.log({watchId});
     store.dispatch(setWatchId(watchId));
   } catch (error) {
     console.log('startWatch', error);
@@ -38,5 +39,7 @@ export function startWatch() {
 
 export function stopWatch() {
   if (!store.getState().agent.watchId) return;
+
   Geolocation.clearWatch(store.getState().agent.watchId! as number);
+  store.dispatch(setWatchId(null));
 }

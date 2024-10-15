@@ -1,12 +1,13 @@
 import axios, {AxiosError} from 'axios';
-import {agentId, officeFenceId, officeId} from '../constants';
+import {Platform} from 'react-native';
+import {officeFenceId, officeId} from '../constants';
 import {store} from '../stores';
 import {SocketConnector} from './socket-connector';
 
-// android emulator localhost
-// const apiURL = 'http://10.0.2.2:8000/api';
-// ios emulator localhost
-const apiURL = 'http://localhost:8000/api';
+const androidAPIURL = 'http://10.0.2.2:8000/api';
+const iosAPIURL = 'http://localhost:8000/api';
+
+const apiURL = Platform.OS === 'ios' ? iosAPIURL : androidAPIURL;
 
 export async function testApi() {
   try {
@@ -79,11 +80,14 @@ export async function patchOfficeFence({polygon}: any) {
 export async function getAgentPositions(date?: any) {
   try {
     const qs = new URLSearchParams();
+    qs.append('agentId', store.getState().agent.trackAgentId);
     qs.append('date', date ? new Date(date).toISOString() : '');
-    // console.log({qs: qs.toString()});
+    console.log(qs.toString());
     const res = await axios.get(`${apiURL}/agent-positions?${qs.toString()}`);
     return res.data;
   } catch (error) {
-    console.log(error);
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data);
+    }
   }
 }
