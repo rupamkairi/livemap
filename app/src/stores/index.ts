@@ -1,11 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {trackingSlice} from './tracking.slice';
 import {agentSlice} from './agent.slice';
+import {backgroundStates} from './background-states';
+import {trackingSlice} from './tracking.slice';
 
 export const store = configureStore({
   reducer: {
     agent: agentSlice.reducer,
     tracking: trackingSlice.reducer,
+    backgroundStates: backgroundStates.reducer,
   },
 });
 

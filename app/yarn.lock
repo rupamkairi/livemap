@@ -4205,6 +4205,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: fb681b242cccabed45494468f64282a7d375ea970e0adbcc5dcc92dcb7aba49b2081c2c9739d41bf71ce89ed68dd73bebfe06ca35129490704775d091895710b
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
@@ -6914,6 +6921,7 @@ __metadata:
     "@types/react-test-renderer": ^18.0.0
     axios: ^1.7.7
     babel-jest: ^29.6.3
+    date-fns: ^4.1.0
     eslint: ^8.19.0
     jest: ^29.6.3
     prettier: 2.8.8
@@ -6921,6 +6929,7 @@ __metadata:
     react-native: 0.75.1
     react-native-background-actions: ^4.0.1
     react-native-background-fetch: ^4.2.5
+    react-native-background-timer: ^2.4.1
     react-native-gesture-handler: ^2.20.0
     react-native-maps: ^1.18.0
     react-native-paper: ^5.12.5
@@ -8298,6 +8307,15 @@ __metadata:
   version: 4.2.5
   resolution: "react-native-background-fetch@npm:4.2.5"
   checksum: d124418a69377f0399b72cb86bfea5e801a4dc2d5b8215e6736fd21836a82ad514a3b89fd2915b866c205e6e7f2feddd0486d4893a0261e7d978502773397d45
+  languageName: node
+  linkType: hard
+
+"react-native-background-timer@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "react-native-background-timer@npm:2.4.1"
+  peerDependencies:
+    react-native: ">=0.47.0"
+  checksum: 635feb23bfdc8c43b8ee85dc85a5eb83f85aa9c285ce92ac329946ac83864121ae66bfb64fefa21e2a10462d094e03c17ff87eeb5d7e6349bc8e72d941f12754
   languageName: node
   linkType: hard
 

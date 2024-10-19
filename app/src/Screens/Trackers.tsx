@@ -5,6 +5,8 @@ import AgentsSwitch from '../components/Agents/AgentSwitch';
 import CurrentLocation from '../components/LocationsComponents/CurrentLocation';
 import LibBackgroundActions from '../components/LocationsComponents/LibBackgroundActions';
 import WatchLocation from '../components/LocationsComponents/WatchLocation';
+import BackgroundActionsManager from '../components/LocationsComponents/BackgroundActionsManager';
+import Break from '../components/UI/Break';
 
 export default function TrackersScreen() {
   return (
@@ -42,6 +44,8 @@ export default function TrackersScreen() {
           <Card.Title title="Background Action" subtitle="" />
           <Card.Content>
             <LibBackgroundActions />
+            <Break />
+            <BackgroundActionsManager />
           </Card.Content>
         </Card>
       </View>
