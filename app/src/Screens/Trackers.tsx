@@ -7,6 +7,7 @@ import LibBackgroundActions from '../components/LocationsComponents/LibBackgroun
 import WatchLocation from '../components/LocationsComponents/WatchLocation';
 import BackgroundActionsManager from '../components/LocationsComponents/BackgroundActionsManager';
 import Break from '../components/UI/Break';
+import LibBackgroundFetch from '../components/LocationsComponents/LibBackgroundFetch';
 
 export default function TrackersScreen() {
   return (
@@ -46,6 +47,8 @@ export default function TrackersScreen() {
             <LibBackgroundActions />
             <Break />
             <BackgroundActionsManager />
+            <Break />
+            <LibBackgroundFetch />
           </Card.Content>
         </Card>
       </View>
