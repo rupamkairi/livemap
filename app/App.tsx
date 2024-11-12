@@ -7,17 +7,21 @@
 
 import React from 'react';
 
-import AppRouter from './src/AppRouter';
 import {NavigationContainer} from '@react-navigation/native';
-import './src/gesture-handler';
 import {Provider} from 'react-redux';
+import './src/gesture-handler';
+import SingleAppRouter from './src/SingleAppRouter';
 import {store} from './src/stores';
+import {RegisterAppStateChange} from './src/utils/AppState';
+
+RegisterAppStateChange();
 
 function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <AppRouter />
+        {/* <AppRouter /> */}
+        <SingleAppRouter />
       </NavigationContainer>
     </Provider>
   );

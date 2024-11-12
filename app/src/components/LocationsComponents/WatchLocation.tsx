@@ -4,7 +4,10 @@ import {Button, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {agentSlice} from '../../stores/agent.slice';
-import {startWatch, stopWatch} from '../../utils/geoloaction-watch';
+import {
+  startGeoLocationWatch,
+  stopGeoLocationWatch,
+} from '../../utils/geoloaction-watch';
 
 Geolocation.setRNConfiguration({
   authorizationLevel: 'always',
@@ -22,14 +25,14 @@ export default function WatchLocation() {
           <Button
             title="Stop Watching"
             onPress={() => {
-              stopWatch();
+              stopGeoLocationWatch();
             }}
           />
         ) : (
           <Button
             title="Start Watching"
             onPress={() => {
-              startWatch();
+              startGeoLocationWatch();
             }}
           />
         )}

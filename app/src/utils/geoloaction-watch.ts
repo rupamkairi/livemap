@@ -1,10 +1,23 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Geolocation from '@react-native-community/geolocation';
-import {store} from '../stores';
-import {setWatchId} from '../stores/agent.slice';
-import {trackingSlice} from '../stores/tracking.slice';
-import {postTrackingPosition} from './api-calls';
+import {taskPosition} from '../components/GoogleMaps/useCalculatePolygon';
+// import {store} from '../stores';
+// import {setWatchId} from '../stores/agent.slice';
+// import {trackingSlice} from '../stores/tracking.slice';
+// import {postTrackingPosition} from './api-calls';
 
-export function startWatch() {
+export let watchId: number;
+
+async function task({position}) {
+  let _watchId = await AsyncStorage.getItem('watchId');
+  console.log('GeoLocation Watch', _watchId);
+
+  await taskPosition(position);
+}
+
+export async function startGeoLocationWatch() {
+  console.log('startWatch');
+
   try {
     Geolocation.requestAuthorization(
       () => {},
@@ -13,33 +26,56 @@ export function startWatch() {
       },
     );
 
-    const watchId = Geolocation.watchPosition(
+    let _watchId = await AsyncStorage.getItem('watchId');
+    Geolocation.clearWatch(+_watchId! as number);
+
+    watchId = Geolocation.watchPosition(
       async position => {
-        console.log('Watch Position updated.');
+        task({position});
 
-        const _position = {
-          timestamp: position.timestamp,
-          ...position.coords,
-        };
-        store.dispatch(
-          trackingSlice.actions.appendPositions({position: _position}),
-        );
+        // const _position = {
+        //   timestamp: position.timestamp,
+        //   ...position.coords,
+        // };
+        // store.dispatch(
+        //   trackingSlice.actions.appendPositions({position: _position}),
+        // );
 
-        await postTrackingPosition(position);
+        // await postTrackingPosition(position);
       },
       error => console.log('watchPosition Error', error),
     );
 
-    console.log({watchId});
-    store.dispatch(setWatchId(watchId));
+    await AsyncStorage.setItem('watchId', watchId.toString());
+    // console.log({watchId});
+    // store.dispatch(setWatchId(watchId));
   } catch (error) {
     console.log('startWatch', error);
   }
 }
 
-export function stopWatch() {
-  if (!store.getState().agent.watchId) return;
+export async function stopGeoLocationWatch() {
+  console.log('stopWatch');
 
-  Geolocation.clearWatch(store.getState().agent.watchId! as number);
-  store.dispatch(setWatchId(null));
+  let _watchId = await AsyncStorage.getItem('watchId');
+  Geolocation.clearWatch(+_watchId! as number);
+  await AsyncStorage.removeItem('watchId');
+
+  // if (!store.getState().agent.watchId) return;
+  // Geolocation.clearWatch(store.getState().agent.watchId! as number);
+  // store.dispatch(setWatchId(null));
+}
+
+export async function toggleGeoLocationWatch() {
+  try {
+    let _watchId = await AsyncStorage.getItem('watchId');
+    console.log({_watchId});
+    if (!_watchId) {
+      startGeoLocationWatch();
+    } else {
+      stopGeoLocationWatch();
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
